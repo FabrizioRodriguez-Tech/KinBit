@@ -7,8 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
   <style>
     @font-face {
-  font-family: 'Impact';
-  src: url('/Tipografías/impact/Impact.ttf') format('truetype');
+  font-family: 'Azonix';
+  src: url('/Tipografías/azonix/Azonix.otf') format('truetype');
 }
     :root {
       --orange: #F7931A;
@@ -28,7 +28,7 @@
 
     body {
       background: var(--bg);
-      color: var(--white);
+      color: var(--gold);
       font-family: 'Syne', sans-serif;
       font-size: 18px;
       min-height: 100vh;
@@ -58,26 +58,26 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 3rem;
+      padding: 4rem;
       height: 64px;
     }
 
     .nav-logo {
-      font-family: 'Impact', monospace;
-      font-size: 3rem;
+      font-family: 'Azonix', sans-serif;
+      font-size: 4rem;
       font-weight: 700;
-      color: var(#F7931A);
-      letter-spacing: 2px;
+      color: var(--white);
+      letter-spacing: 0px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 3px;
     }
 
     .nav-logo span { color: var(#FFD700); }
 
     .nav-tabs {
       display: flex;
-      gap: 2rem;
+      gap: 7rem;
       list-style: none;
     }
 
@@ -86,7 +86,7 @@
       border: none;
       color: var(--gray);
       font-family: 'Syne', sans-serif;
-      font-size: 1.5rem;
+      font-size: 2.2rem;
       font-weight: 600;
       padding: 2rem 2rem;
       border-radius: 6px;
@@ -99,8 +99,8 @@
     .nav-tabs li button.active { color: var(--orange); background: rgba(247,147,26,0.1); border: 1px solid var(--border-solid); }
 
     .ticker {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
+      font-family: 'Space Mono';
+      font-size: 2.5rem;
       color: var(--gold);
       display: flex;
       align-items: center;
@@ -108,7 +108,7 @@
     }
 
     .ticker-dot {
-      width: 7px; height: 7px;
+      width: 20px; height: 20px;
       background: var(--green);
       border-radius: 50%;
       animation: pulse 2s infinite;
@@ -150,28 +150,29 @@
       background: rgba(247,147,26,0.1);
       border: 1px solid var(--border-solid);
       border-radius: 999px;
-      padding: 0.4rem 1rem;
-      font-size: 0.8rem;
-      color: var(--orange);
+      padding: 1rem 7rem;
+      font-size: 2.5rem;
+      color: var(--gold);
       margin-bottom: 2rem;
       font-family: 'Space Mono', monospace;
-      letter-spacing: 1px;
+      letter-spacing: 20px;
     }
 
     .hero h1 {
-      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-family: 'Azonix', sans-serif;
+      font-size: clamp(3.5rem, 10vw, 20rem);
       font-weight: 800;
       line-height: 1;
       margin-bottom: 1rem;
       letter-spacing: -3px;
     }
 
-    .hero h1 .kin { color: var(--gold); }
-    .hero h1 .bit { color: var(--orange); }
+    .hero h1 .kin { color: var(--white); }
+    .hero h1 .bit { color: var(--white); }
 
     .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      color: var(--gray);
+      font-size: clamp(1rem, 2.5vw, 2rem);
+      color: var(--white);
       max-width: 540px;
       margin-bottom: 3rem;
       line-height: 1.7;
@@ -190,11 +191,11 @@
       background: var(--orange);
       color: #000;
       border: none;
-      padding: 0.85rem 2rem;
+      padding: 1rem 3rem;
       border-radius: 8px;
-      font-family: 'Impact', sans-serif;
-      font-weight: 700;
-      font-size: 1rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 2rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -205,11 +206,11 @@
       background: transparent;
       color: var(--white);
       border: 1px solid var(--border-solid);
-      padding: 0.85rem 2rem;
-      border-radius: 8px;
+      padding: 1rem 3rem;
+      border-radius: 7px;
       font-family: 'Syne', sans-serif;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 2rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -218,10 +219,11 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 400px));
       gap: 1.5rem;
       padding: 3rem 3rem;
       max-width: 100%;
+      justify-content: center;
     }
 
     .stat-card {
@@ -246,13 +248,13 @@
 
     .stat-number {
       font-family: 'Space Mono', monospace;
-      font-size: 2.2rem;
+      font-size: 3rem;
       font-weight: 700;
       color: var(--orange);
       margin-bottom: 0.5rem;
     }
 
-    .stat-label { color: var(--gray); font-size: 0.875rem; line-height: 1.5; }
+    .stat-label { color: var(--gray); font-size: 1.4rem; line-height: 1.5; }
 
     .section {
       max-width: 100%;
@@ -260,19 +262,21 @@
     }
 
     .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-size: clamp(1.8rem, 4vw, 5rem);
       font-weight: 800;
       margin-bottom: 1rem;
       letter-spacing: -1px;
+    text-align: center;
     }
 
-    .section-title .accent { color: var(--orange); }
-    .section-sub { color: var(--gray); font-size: 1rem; margin-bottom: 3rem; max-width: 540px; }
+    .section-title .accent { color: var(--white); }
+    .section-sub { color: var(--gray); font-size: 1.5rem; margin-bottom: 3rem; max-width: 540px; text-align: center; margin-left: auto; margin-right: auto; }
 
     .problem-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 400px));
       gap: 1.5rem;
+      justify-content: center;
     }
 
     .problem-card {
@@ -299,8 +303,8 @@
       border-radius: 10px;
     }
 
-    .problem-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .problem-card p { color: var(--gray); font-size: 0.875rem; line-height: 1.6; }
+    .problem-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .problem-card p { color: var(--gray); font-size: 1.3rem; line-height: 1.6; }
 
     /* ─── TAB 2: APRENDE ─── */
     .learn-hero {
@@ -872,7 +876,7 @@
     <div class="hero-glow"></div>
     <div class="hero-badge">₿ Bitcoin · Lightning Network · México</div>
     <h1><span class="kin">Kin</span><span class="bit">Bit</span></h1>
-    <p class="hero-sub">El <strong>dinero del sol</strong> para el comercio informal mexicano.<br/>Cobra en pesos, recibe Bitcoin — sin banco, sin smartphone caro.</p>
+    <p class="hero-sub">Cobra en bitcoin, recibe en pesos. </p>
     <div class="hero-cta">
       <button class="btn-primary" onclick="switchTab('app')">Probar App →</button>
       <button class="btn-secondary" onclick="switchTab('aprende')">¿Qué es Bitcoin?</button>
@@ -903,28 +907,25 @@
     <p class="section-sub">Millones de comerciantes informales mexicanos están excluidos del sistema financiero digital.</p>
     <div class="problem-grid">
       <div class="problem-card">
-        <div class="problem-icon">🏪</div>
         <div>
           <h3>Sin terminal de pago</h3>
           <p>Los bancos exigen documentación formal que la mayoría de comerciantes informales no puede proveer.</p>
         </div>
       </div>
       <div class="problem-card">
-        <div class="problem-icon">💸</div>
         <div>
           <h3>Remesas carísimas</h3>
           <p>Servicios como Western Union se quedan con hasta el 10% del dinero que familias mexicanas necesitan.</p>
         </div>
       </div>
       <div class="problem-card">
-        <div class="problem-icon">📱</div>
         <div>
           <h3>Brecha tecnológica</h3>
           <p>Las soluciones digitales existentes requieren smartphones caros, apps complejas o conocimiento técnico.</p>
         </div>
       </div>
       <div class="problem-card">
-        <div class="problem-icon">🏦</div>
+
         <div>
           <h3>Exclusión bancaria</h3>
           <p>Sin cuenta bancaria no hay forma de recibir pagos digitales ni ahorrar de forma segura.</p>
