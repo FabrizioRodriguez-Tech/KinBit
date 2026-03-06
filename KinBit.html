@@ -171,11 +171,10 @@
     .hero h1 .bit { color: var(--white); }
 
     .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 2rem);
+      font-size: clamp(1rem, 2.5vw, 2.5rem);
       color: var(--white);
       max-width: 540px;
       margin-bottom: 3rem;
-      line-height: 1.7;
     }
 
     .hero-sub strong { color: var(--white); }
@@ -195,7 +194,7 @@
       border-radius: 8px;
       font-family: 'Syne', sans-serif;
       font-weight: 600;
-      font-size: 2rem;
+      font-size: 2.5rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -210,7 +209,7 @@
       border-radius: 7px;
       font-family: 'Syne', sans-serif;
       font-weight: 600;
-      font-size: 2rem;
+      font-size: 2.5rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -267,10 +266,11 @@
       margin-bottom: 1rem;
       letter-spacing: -1px;
     text-align: center;
+    color: orange;
     }
 
     .section-title .accent { color: var(--white); }
-    .section-sub { color: var(--gray); font-size: 3rem; margin-bottom: 3rem; max-width: 540px; text-align: center; margin-left: auto; margin-right: auto; }
+    .section-sub { color: var(--gray); font-size: 3rem; margin-bottom: 3rem; max-width: 100%; text-align: center; margin-left: auto; margin-right: auto; white-space: nowrap; }
 
     .problem-grid {
       display: grid;
@@ -903,7 +903,7 @@
   </div>
 
   <section class="section">
-    <h2 class="section-title">El <span class="accent">problema</span> real</h2>
+   <h2 class="section-title"><span style="color:#FFFFFF">El problema</span><span style="color:#F7931A"> real</span></h2>
     <p class="section-sub">Millones de comerciantes informales mexicanos están excluidos del sistema financiero digital.</p>
     <div class="problem-grid">
       <div class="problem-card">
