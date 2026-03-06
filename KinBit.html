@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KinBit — El dinero del sol</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+  font-family: 'Impact';
+  src: url('/Tipografías/impact/Impact.ttf') format('truetype');
+}
+    :root {
+      --orange: #F7931A;
+      --gold: #FFD700;
+      --bg: #0A0A0A;
+      --card: #141414;
+      --card2: #1C1C1C;
+      --white: #FFFFFF;
+      --gray: #888888;
+      --green: #00C853;
+      --red: #FF3B30;
+      --border: rgba(247,147,26,0.2);
+      --border-solid: rgba(247,147,26,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(247,147,26,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247,147,26,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Impact', monospace;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(#F7931A);
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo span { color: var(#FFD700); }
+
+    .nav-tabs {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-tabs li button {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-family: 'Syne', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 2rem 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-tabs li button:hover { color: var(--white); background: rgba(255,255,255,0.05); }
+    .nav-tabs li button.active { color: var(--orange); background: rgba(247,147,26,0.1); border: 1px solid var(--border-solid); }
+
+    .ticker {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ticker-dot {
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* ─── TABS ─── */
+    .tab-content { display: none; position: relative; z-index: 1; }
+    .tab-content.active { display: block; }
+
+    /* ─── TAB 1: INICIO ─── */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(247,147,26,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(247,147,26,0.1);
+      border: 1px solid var(--border-solid);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      color: var(--orange);
+      margin-bottom: 2rem;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.5rem, 10vw, 7rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 1rem;
+      letter-spacing: -3px;
+    }
+
+    .hero h1 .kin { color: var(--gold); }
+    .hero h1 .bit { color: var(--orange); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--gray);
+      max-width: 540px;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    .hero-sub strong { color: var(--white); }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: #000;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-family: 'Impact', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover { background: #e8851a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(247,147,26,0.3); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border-solid);
+      padding: 0.85rem 2rem;
+      border-radius: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); transform: translateY(-2px); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      padding: 3rem 3rem;
+      max-width: 100%;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--gold));
+    }
+
+    .stat-card:hover { transform: translateY(-4px); border-color: var(--border-solid); }
+
+    .stat-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label { color: var(--gray); font-size: 0.875rem; line-height: 1.5; }
+
+    .section {
+      max-width: 100%;
+      padding: 4rem 3rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .section-title .accent { color: var(--orange); }
+    .section-sub { color: var(--gray); font-size: 1rem; margin-bottom: 3rem; max-width: 540px; }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .problem-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.75rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: all 0.3s;
+    }
+
+    .problem-card:hover { border-color: var(--border-solid); background: var(--card2); }
+
+    .problem-icon {
+      font-size: 1.6rem;
+      min-width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(247,147,26,0.1);
+      border-radius: 10px;
+    }
+
+    .problem-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .problem-card p { color: var(--gray); font-size: 0.875rem; line-height: 1.6; }
+
+    /* ─── TAB 2: APRENDE ─── */
+    .learn-hero {
+      text-align: center;
+      padding: 4rem 3rem 2rem;
+      max-width: 100%;
+    }
+
+    .learn-hero h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .learn-hero p { color: var(--gray); font-size: 1rem; line-height: 1.6; }
+
+    .concepts {
+      max-width: 100%;
+      padding: 2rem 3rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .concept-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+
+    .concept-card:hover { border-color: var(--border-solid); }
+
+    .concept-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.75rem;
+    }
+
+    .concept-left { display: flex; align-items: center; gap: 1rem; }
+
+    .concept-icon {
+      width: 46px; height: 46px;
+      background: rgba(247,147,26,0.1);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .concept-title { font-weight: 700; font-size: 1rem; }
+    .concept-subtitle { color: var(--gray); font-size: 0.8rem; margin-top: 2px; }
+    .concept-arrow { color: var(--gray); font-size: 1rem; transition: transform 0.3s; }
+    .concept-card.open .concept-arrow { transform: rotate(180deg); }
+
+    .concept-body {
+      display: none;
+      padding: 0 1.75rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .concept-card.open .concept-body { display: block; }
+
+    .concept-body p {
+      color: #ccc;
+      font-size: 0.925rem;
+      line-height: 1.8;
+      margin: 1rem 0 0.75rem;
+    }
+
+    .concept-analogy {
+      background: rgba(247,147,26,0.06);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      color: var(--white);
+      line-height: 1.6;
+    }
+
+    .concept-analogy strong { color: var(--orange); }
+
+    /* QUIZ */
+    .quiz-section {
+      max-width: 100%;
+      padding: 0 3rem 4rem;
+    }
+
+    .quiz-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .quiz-sub { color: var(--gray); font-size: 0.875rem; margin-bottom: 2rem; }
+
+    .quiz-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .quiz-question { font-size: 1.05rem; font-weight: 600; margin-bottom: 1.5rem; line-height: 1.5; }
+    .quiz-options { display: grid; gap: 0.625rem; }
+
+    .quiz-option {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1.25rem;
+      cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.925rem;
+      color: var(--white);
+      text-align: left;
+      transition: all 0.2s;
+    }
+
+    .quiz-option:hover { border-color: var(--orange); background: rgba(247,147,26,0.07); }
+    .quiz-option.correct { border-color: var(--green); background: rgba(0,200,83,0.1); color: var(--green); }
+    .quiz-option.wrong { border-color: var(--red); background: rgba(255,59,48,0.1); color: #ff6b6b; }
+
+    .quiz-feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.correct { background: rgba(0,200,83,0.1); border: 1px solid rgba(0,200,83,0.3); color: var(--green); }
+    .quiz-feedback.wrong { background: rgba(255,59,48,0.08); border: 1px solid rgba(255,59,48,0.3); color: #ff7070; }
+
+    .quiz-next { margin-top: 1.25rem; display: none; }
+    .quiz-next.show { display: block; }
+
+    .quiz-progress {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--gray);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .progress-bar { flex: 1; height: 4px; background: var(--card2); border-radius: 999px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--orange), var(--gold)); border-radius: 999px; transition: width 0.4s; }
+
+    .score-display { text-align: center; padding: 2rem; }
+    .score-display .big-score { font-family: 'Space Mono', monospace; font-size: 4rem; color: var(--orange); font-weight: 700; }
+    .score-display p { color: var(--gray); margin-top: 0.5rem; }
+
+    /* ─── TAB 3: CÓMO FUNCIONA ─── */
+    .how-hero {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
+
+    .how-hero h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+
+    .how-hero p { color: var(--gray); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+    .flow {
+      max-width: 100%;
+      margin: 3rem 0;
+      padding: 0 3rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .flow-step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.5s;
+    }
+
+    .flow-step.visible { opacity: 1; transform: translateX(0); }
+    .flow-step:hover { border-color: var(--border-solid); }
+
+    .step-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--orange);
+      min-width: 44px;
+      opacity: 0.35;
+    }
+
+    .step-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .step-content p { color: var(--gray); font-size: 0.875rem; line-height: 1.6; }
+
+    .step-badge {
+      margin-left: auto;
+      font-size: 0.72rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-weight: 600;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+
+    .badge-client { background: rgba(247,147,26,0.15); color: var(--orange); border: 1px solid rgba(247,147,26,0.3); }
+    .badge-vendor { background: rgba(0,200,83,0.1); color: var(--green); border: 1px solid rgba(0,200,83,0.3); }
+    .badge-system { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.3); }
+
+    .actors {
+      max-width: 100%;
+      padding: 2rem 3rem 4rem;
+    }
+
+    .actors h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 2rem; text-align: center; }
+
+    .actors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .actor-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .actor-card:hover { transform: translateY(-4px); border-color: var(--border-solid); }
+
+    .actor-emoji { font-size: 2.75rem; margin-bottom: 1rem; }
+    .actor-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .actor-role { color: var(--orange); font-size: 0.8rem; font-family: 'Space Mono', monospace; margin-bottom: 0.75rem; }
+    .actor-desc { color: var(--gray); font-size: 0.85rem; line-height: 1.6; }
+
+    .comparison {
+      max-width: 100%;
+      padding: 0 3rem 4rem;
+    }
+
+    .comparison h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 2rem; text-align: center; }
+
+    .compare-table {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      padding: 0.9rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .compare-row:last-child { border-bottom: none; }
+
+    .compare-row.header {
+      background: rgba(247,147,26,0.07);
+      font-weight: 700;
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .compare-row .label { font-size: 0.875rem; }
+    .compare-row .val { font-size: 0.875rem; text-align: center; }
+    .compare-row .val.good { color: var(--green); font-weight: 600; }
+    .compare-row .val.bad { color: #ff6b6b; }
+    .compare-row .val.neu { color: var(--gray); }
+
+    /* ─── TAB 4: APP ─── */
+    .app-wrapper {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .pos-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 400px;
+      overflow: hidden;
+    }
+
+    .pos-header {
+      background: rgba(247,147,26,0.07);
+      border-bottom: 1px solid var(--border);
+      padding: 1.1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pos-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .pos-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      color: var(--green);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .pos-screen { display: none; padding: 1.75rem; }
+    .pos-screen.active { display: block; }
+
+    .qr-container { text-align: center; }
+
+    .qr-label {
+      color: var(--gray);
+      font-size: 0.82rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .qr-box {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 1.25rem;
+      background: white;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: qrGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes qrGlow {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(247,147,26,0.25), 0 0 24px rgba(247,147,26,0.1); }
+      50% { box-shadow: 0 0 0 4px rgba(247,147,26,0.55), 0 0 36px rgba(247,147,26,0.22); }
+    }
+
+    .btc-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .btc-price-val { color: var(--gold); }
+
+    .qr-amount-label { font-size: 0.78rem; color: var(--gray); margin-bottom: 0.5rem; }
+
+    .qr-amount-input {
+      width: 100%;
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 1.1rem;
+      color: var(--white);
+      text-align: center;
+      margin-bottom: 0.75rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .qr-amount-input:focus { border-color: var(--orange); }
+
+    .qr-hint {
+      font-size: 0.76rem;
+      color: var(--gray);
+      margin-bottom: 1.25rem;
+    }
+
+    .qr-hint span { color: var(--gold); font-family: 'Space Mono', monospace; }
+
+    .pay-btn {
+      width: 100%;
+      background: var(--orange);
+      color: #000;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 12px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pay-btn:hover { background: #e8851a; transform: translateY(-1px); }
+
+    .processing-screen { text-align: center; }
+
+    .spinner-ring {
+      width: 72px; height: 72px;
+      border: 3px solid var(--border);
+      border-top-color: var(--orange);
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .processing-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .processing-sub { color: var(--gray); font-size: 0.85rem; }
+
+    .processing-steps { margin-top: 1.5rem; display: grid; gap: 0.4rem; text-align: left; }
+
+    .proc-step {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.83rem;
+      color: var(--gray);
+      padding: 0.45rem 0.7rem;
+      border-radius: 8px;
+      transition: all 0.4s;
+    }
+
+    .proc-step.done { color: var(--green); background: rgba(0,200,83,0.07); }
+    .proc-step.active { color: var(--white); }
+
+    .proc-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gray);
+      min-width: 7px;
+    }
+
+    .proc-step.done .proc-dot { background: var(--green); }
+    .proc-step.active .proc-dot { background: var(--orange); animation: pulse 1s infinite; }
+
+    .success-screen { text-align: center; }
+
+    .success-icon {
+      width: 72px; height: 72px;
+      background: rgba(0,200,83,0.12);
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      margin: 0 auto 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .success-title { font-size: 1.3rem; font-weight: 800; color: var(--green); margin-bottom: 0.4rem; }
+
+    .success-amount {
+      font-family: 'Space Mono', monospace;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .success-sub { color: var(--gray); font-size: 0.82rem; margin-bottom: 1.5rem; }
+
+    .sms-preview {
+      background: var(--card2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+      text-align: left;
+    }
+
+    .sms-label {
+      font-size: 0.68rem;
+      color: var(--gray);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .sms-text { font-size: 0.85rem; line-height: 1.5; color: var(--white); }
+    .sms-text .highlight { color: var(--green); font-weight: 700; }
+
+    .reset-btn {
+      width: 100%;
+      background: transparent;
+      color: var(--orange);
+      border: 1px solid var(--border-solid);
+      padding: 0.8rem;
+      border-radius: 12px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .reset-btn:hover { background: rgba(247,147,26,0.07); }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+      font-size: 0.78rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer span { color: var(--orange); }
+
+    @media (max-width: 600px) {
+      .nav-tabs li button { padding: 0.45rem 0.55rem; font-size: 0.72rem; }
+      .ticker { display: none; }
+      .compare-row { grid-template-columns: 1.2fr 1fr 1fr; font-size: 0.78rem; padding: 0.7rem 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">₿ <span>Kin</span>Bit</div>
+  <ul class="nav-tabs">
+    <li><button class="active" onclick="switchTab('inicio')">Inicio</button></li>
+    <li><button onclick="switchTab('aprende')">Aprende</button></li>
+    <li><button onclick="switchTab('como')">¿Cómo funciona?</button></li>
+    <li><button onclick="switchTab('app')">App ↗</button></li>
+  </ul>
+  <div class="ticker">
+    <div class="ticker-dot"></div>
+    <span id="btcPrice">cargando...</span>
+  </div>
+</nav>
+
+<!-- ══════════════ TAB 1: INICIO ══════════════ -->
+<div id="tab-inicio" class="tab-content active">
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-badge">₿ Bitcoin · Lightning Network · México</div>
+    <h1><span class="kin">Kin</span><span class="bit">Bit</span></h1>
+    <p class="hero-sub">El <strong>dinero del sol</strong> para el comercio informal mexicano.<br/>Cobra en pesos, recibe Bitcoin — sin banco, sin smartphone caro.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="switchTab('app')">Probar App →</button>
+      <button class="btn-secondary" onclick="switchTab('aprende')">¿Qué es Bitcoin?</button>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-number">30M+</div>
+      <div class="stat-label">trabajadores en la economía informal en México (INEGI 2024)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">49%</div>
+      <div class="stat-label">de mexicanos tiene acceso a servicios bancarios formales</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">7–10%</div>
+      <div class="stat-label">cobra Western Union por transferencias internacionales</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">~0.5%</div>
+      <div class="stat-label">comisión total con KinBit vía Lightning Network</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2 class="section-title">El <span class="accent">problema</span> real</h2>
+    <p class="section-sub">Millones de comerciantes informales mexicanos están excluidos del sistema financiero digital.</p>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">🏪</div>
+        <div>
+          <h3>Sin terminal de pago</h3>
+          <p>Los bancos exigen documentación formal que la mayoría de comerciantes informales no puede proveer.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">💸</div>
+        <div>
+          <h3>Remesas carísimas</h3>
+          <p>Servicios como Western Union se quedan con hasta el 10% del dinero que familias mexicanas necesitan.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📱</div>
+        <div>
+          <h3>Brecha tecnológica</h3>
+          <p>Las soluciones digitales existentes requieren smartphones caros, apps complejas o conocimiento técnico.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🏦</div>
+        <div>
+          <h3>Exclusión bancaria</h3>
+          <p>Sin cuenta bancaria no hay forma de recibir pagos digitales ni ahorrar de forma segura.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════ TAB 2: APRENDE ══════════════ -->
+<div id="tab-aprende" class="tab-content">
+
+  <div class="learn-hero">
+    <h2>Bitcoin <span style="color:var(--orange)">sin tecnicismos</span></h2>
+    <p>Conceptos clave explicados en lenguaje cotidiano mexicano. Toca cada concepto para expandirlo.</p>
+  </div>
+
+  <div class="concepts">
+
+    <div class="concept-card" onclick="toggleConcept(this)">
+      <div class="concept-header">
+        <div class="concept-left">
+          <div class="concept-icon">₿</div>
+          <div>
+            <div class="concept-title">¿Qué es Bitcoin?</div>
+            <div class="concept-subtitle">La moneda digital descentralizada</div>
+          </div>
+        </div>
+        <div class="concept-arrow">▼</div>
+      </div>
+      <div class="concept-body">
+        <p>Bitcoin es una moneda digital que no controla ningún banco ni gobierno. Funciona gracias a miles de computadoras alrededor del mundo que verifican cada transacción y la registran en un libro público llamado blockchain.</p>
+        <p>A diferencia del peso mexicano, nadie puede imprimir más Bitcoin. Solo existirán 21 millones de bitcoins en total, lo que lo hace resistente a la inflación.</p>
+        <div class="concept-analogy">
+          <strong>Analogía mexicana:</strong> Imagina que el oro fuera digital y que en lugar de estar guardado en un banco, estuviera registrado en un libro que todos en el pueblo pueden ver y nadie puede borrar ni cambiar.
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" onclick="toggleConcept(this)">
+      <div class="concept-header">
+        <div class="concept-left">
+          <div class="concept-icon">⚡</div>
+          <div>
+            <div class="concept-title">Lightning Network</div>
+            <div class="concept-subtitle">Pagos instantáneos en Bitcoin</div>
+          </div>
+        </div>
+        <div class="concept-arrow">▼</div>
+      </div>
+      <div class="concept-body">
+        <p>Bitcoin normal puede tardar entre 10 minutos y 1 hora en confirmar un pago. Lightning Network es una capa adicional sobre Bitcoin que permite pagos instantáneos en menos de 3 segundos con comisiones casi cero.</p>
+        <p>KinBit usa Lightning Network para que el pago llegue al instante, como si fuera efectivo digital.</p>
+        <div class="concept-analogy">
+          <strong>Analogía mexicana:</strong> Si Bitcoin es la carretera federal, Lightning Network es el carril rápido de cuota. Llegas más rápido y pagas mucho menos.
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" onclick="toggleConcept(this)">
+      <div class="concept-header">
+        <div class="concept-left">
+          <div class="concept-icon">🪙</div>
+          <div>
+            <div class="concept-title">¿Qué es un Satoshi?</div>
+            <div class="concept-subtitle">La unidad mínima de Bitcoin</div>
+          </div>
+        </div>
+        <div class="concept-arrow">▼</div>
+      </div>
+      <div class="concept-body">
+        <p>Un Bitcoin se divide en 100 millones de partes iguales. Cada una de esas partes se llama satoshi (o "sat"). Así como el peso se divide en centavos, el Bitcoin se divide en satoshis.</p>
+        <p>Como el Bitcoin vale mucho, la mayoría de los pagos cotidianos se hacen en miles o cientos de miles de satoshis, no en bitcoins completos.</p>
+        <div class="concept-analogy">
+          <strong>Analogía mexicana:</strong> Un satoshi es como el centavo del Bitcoin. Pagarías $150 pesos ≈ 8,333 sats, igual que $150 pesos = 15,000 centavos.
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" onclick="toggleConcept(this)">
+      <div class="concept-header">
+        <div class="concept-left">
+          <div class="concept-icon">🔗</div>
+          <div>
+            <div class="concept-title">¿Qué es la Blockchain?</div>
+            <div class="concept-subtitle">El registro público de todas las transacciones</div>
+          </div>
+        </div>
+        <div class="concept-arrow">▼</div>
+      </div>
+      <div class="concept-body">
+        <p>La blockchain es una base de datos pública donde se registran todas las transacciones de Bitcoin. Es como un libro de contabilidad gigante que todos pueden consultar pero nadie puede modificar retroactivamente.</p>
+        <p>Cada "bloque" contiene un grupo de transacciones y está enlazado matemáticamente al bloque anterior, formando una cadena imposible de alterar sin que todos lo noten.</p>
+        <div class="concept-analogy">
+          <strong>Analogía mexicana:</strong> Es como el libro de cuentas del tendero del barrio, pero en lugar de que solo él lo tenga, todos los vecinos tienen una copia idéntica y actualizada en tiempo real.
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card" onclick="toggleConcept(this)">
+      <div class="concept-header">
+        <div class="concept-left">
+          <div class="concept-icon">📉</div>
+          <div>
+            <div class="concept-title">Bitcoin vs Inflación del Peso</div>
+            <div class="concept-subtitle">¿Por qué importa para México?</div>
+          </div>
+        </div>
+        <div class="concept-arrow">▼</div>
+      </div>
+      <div class="concept-body">
+        <p>El peso mexicano pierde valor cada año por la inflación. Lo que comprabas con $100 pesos en 2015 hoy cuesta aproximadamente $220 pesos. Bitcoin, al ser escaso y global, ha funcionado históricamente como reserva de valor a largo plazo.</p>
+        <p>KinBit no obliga a nadie a guardar Bitcoin — el vendedor recibe pesos al instante. Pero para quienes envían remesas o quieren ahorrar, Bitcoin puede ser una alternativa interesante al peso devaluado.</p>
+        <div class="concept-analogy">
+          <strong>Dato real:</strong> México recibe más de $60,000 millones de dólares en remesas al año. Con Bitcoin Lightning una familia puede recibir ese dinero en 3 segundos con 0.5% de comisión, en lugar de esperar días y pagar 7–10%.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="quiz-section">
+    <div class="quiz-title">🎮 Pon a prueba lo aprendido</div>
+    <div class="quiz-sub">5 preguntas sobre Bitcoin y KinBit</div>
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-progress">
+        <span id="qNum">1 / 5</span>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+        <span id="qScore">✓ 0</span>
+      </div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-next" id="quizNext">
+        <button class="btn-primary" style="width:100%" onclick="nextQuestion()">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════ TAB 3: CÓMO FUNCIONA ══════════════ -->
+<div id="tab-como" class="tab-content">
+
+  <div class="how-hero">
+    <h2>Así funciona <span style="color:var(--orange)">KinBit</span></h2>
+    <p>Un flujo simple que lleva Bitcoin al comercio informal sin que el vendedor tenga que entender criptomonedas.</p>
+  </div>
+
+  <div class="flow" id="flowSteps">
+    <div class="flow-step">
+      <div class="step-number">01</div>
+      <div class="step-content">
+        <h3>Promotor registra el negocio</h3>
+        <p>Un promotor crea la cuenta en Bitso, genera el QR único del negocio y lo entrega al vendedor impreso o en pantalla. Se hace una sola vez.</p>
+      </div>
+      <span class="step-badge badge-system">Promotor</span>
+    </div>
+    <div class="flow-step">
+      <div class="step-number">02</div>
+      <div class="step-content">
+        <h3>Vendedor muestra el QR</h3>
+        <p>El vendedor simplemente muestra el código QR al cliente. No necesita abrir ninguna app ni hacer nada más.</p>
+      </div>
+      <span class="step-badge badge-vendor">Vendedor</span>
+    </div>
+    <div class="flow-step">
+      <div class="step-number">03</div>
+      <div class="step-content">
+        <h3>Cliente escanea con Bitso</h3>
+        <p>El cliente abre su app de Bitso, escanea el QR e ingresa el monto a pagar. Bitso tiene más de 8 millones de usuarios en México.</p>
+      </div>
+      <span class="step-badge badge-client">Cliente</span>
+    </div>
+    <div class="flow-step">
+      <div class="step-number">04</div>
+      <div class="step-content">
+        <h3>Pago Lightning en menos de 3 segundos</h3>
+        <p>Lightning Network liquida el pago instantáneamente. El Bitcoin viaja del cliente al vendedor casi al instante.</p>
+      </div>
+      <span class="step-badge badge-system">⚡ Lightning</span>
+    </div>
+    <div class="flow-step">
+      <div class="step-number">05</div>
+      <div class="step-content">
+        <h3>Vendedor recibe SMS de confirmación</h3>
+        <p>Al instante llega un mensaje de texto al vendedor: "¡Cobro exitoso! $150.00 MXN". Sin apps, sin internet, sin complicaciones.</p>
+      </div>
+      <span class="step-badge badge-vendor">📱 SMS</span>
+    </div>
+    <div class="flow-step">
+      <div class="step-number">06</div>
+      <div class="step-content">
+        <h3>Retira en OXXO o banco</h3>
+        <p>El dinero acumulado en Bitso se puede retirar en efectivo en cualquier OXXO del país, sin necesidad de cuenta bancaria.</p>
+      </div>
+      <span class="step-badge badge-vendor">🏪 OXXO</span>
+    </div>
+  </div>
+
+  <div class="actors">
+    <h3>Los 3 actores del sistema</h3>
+    <div class="actors-grid">
+      <div class="actor-card">
+        <div class="actor-emoji">🧑‍💼</div>
+        <div class="actor-name">El Promotor</div>
+        <div class="actor-role">Administrador</div>
+        <div class="actor-desc">Registra el negocio en Bitso, genera el QR y lo entrega al vendedor. Lo hace una sola vez.</div>
+      </div>
+      <div class="actor-card">
+        <div class="actor-emoji">👩‍🍳</div>
+        <div class="actor-name">Doña María</div>
+        <div class="actor-role">El Vendedor</div>
+        <div class="actor-desc">Solo muestra el QR y espera el SMS. No necesita saber qué es Bitcoin ni tener cuenta bancaria.</div>
+      </div>
+      <div class="actor-card">
+        <div class="actor-emoji">📱</div>
+        <div class="actor-name">El Cliente</div>
+        <div class="actor-role">Usuario Bitso</div>
+        <div class="actor-desc">Escanea el QR con Bitso, ingresa el monto y paga. 8 millones de usuarios en México ya tienen Bitso.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="comparison">
+    <h3>KinBit vs métodos tradicionales</h3>
+    <div class="compare-table">
+      <div class="compare-row header">
+        <div class="label">Criterio</div>
+        <div class="val">Western Union</div>
+        <div class="val" style="color:var(--orange)">KinBit</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Comisión</div>
+        <div class="val bad">7–10%</div>
+        <div class="val good">~0.5%</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Tiempo de llegada</div>
+        <div class="val bad">1–3 días</div>
+        <div class="val good">&lt; 3 segundos</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Requiere cuenta bancaria</div>
+        <div class="val bad">Sí</div>
+        <div class="val good">No</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Disponible 24/7</div>
+        <div class="val bad">No</div>
+        <div class="val good">Sí</div>
+      </div>
+      <div class="compare-row">
+        <div class="label">Retiro en OXXO</div>
+        <div class="val neu">Limitado</div>
+        <div class="val good">Sí, siempre</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════ TAB 4: APP ══════════════ -->
+<div id="tab-app" class="tab-content">
+  <div class="app-wrapper">
+    <div class="pos-card">
+
+      <div class="pos-header">
+        <div class="pos-title">₿ KinBit POS</div>
+        <div class="pos-status">
+          <div class="ticker-dot"></div>
+          <span>Activo</span>
+        </div>
+      </div>
+
+      <!-- PANTALLA 1: QR -->
+      <div class="pos-screen active" id="screen-qr">
+        <div class="qr-container">
+          <div class="btc-price-row">
+            <span>BTC/MXN:</span>
+            <span class="btc-price-val" id="appBtcPrice">cargando...</span>
+          </div>
+          <p class="qr-label">Muestra este código al cliente.<br/>El cliente ingresa el monto en su app de Bitso.</p>
+
+          <div class="qr-box">
+            <!-- Reemplaza este SVG con <img src="qr.png" width="180" height="180"> cuando tengas tu QR real de Bitso -->
+            <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+              <rect width="180" height="180" fill="white"/>
+              <rect x="10" y="10" width="50" height="50" fill="none" stroke="black" stroke-width="5"/>
+              <rect x="20" y="20" width="30" height="30" fill="black"/>
+              <rect x="120" y="10" width="50" height="50" fill="none" stroke="black" stroke-width="5"/>
+              <rect x="130" y="20" width="30" height="30" fill="black"/>
+              <rect x="10" y="120" width="50" height="50" fill="none" stroke="black" stroke-width="5"/>
+              <rect x="20" y="130" width="30" height="30" fill="black"/>
+              <rect x="70" y="10" width="8" height="8" fill="black"/><rect x="84" y="10" width="8" height="8" fill="black"/>
+              <rect x="98" y="10" width="8" height="8" fill="black"/><rect x="70" y="24" width="8" height="8" fill="black"/>
+              <rect x="98" y="24" width="8" height="8" fill="black"/><rect x="77" y="38" width="8" height="8" fill="black"/>
+              <rect x="91" y="38" width="8" height="8" fill="black"/><rect x="70" y="52" width="8" height="8" fill="black"/>
+              <rect x="84" y="52" width="8" height="8" fill="black"/><rect x="98" y="52" width="8" height="8" fill="black"/>
+              <rect x="10" y="70" width="8" height="8" fill="black"/><rect x="24" y="70" width="8" height="8" fill="black"/>
+              <rect x="52" y="70" width="8" height="8" fill="black"/><rect x="70" y="70" width="8" height="8" fill="black"/>
+              <rect x="84" y="70" width="8" height="8" fill="black"/><rect x="98" y="70" width="8" height="8" fill="black"/>
+              <rect x="112" y="70" width="8" height="8" fill="black"/><rect x="140" y="70" width="8" height="8" fill="black"/>
+              <rect x="162" y="70" width="8" height="8" fill="black"/><rect x="10" y="84" width="8" height="8" fill="black"/>
+              <rect x="38" y="84" width="8" height="8" fill="black"/><rect x="66" y="84" width="8" height="8" fill="black"/>
+              <rect x="94" y="84" width="8" height="8" fill="black"/><rect x="126" y="84" width="8" height="8" fill="black"/>
+              <rect x="154" y="84" width="8" height="8" fill="black"/><rect x="10" y="98" width="8" height="8" fill="black"/>
+              <rect x="24" y="98" width="8" height="8" fill="black"/><rect x="52" y="98" width="8" height="8" fill="black"/>
+              <rect x="70" y="98" width="8" height="8" fill="black"/><rect x="98" y="98" width="8" height="8" fill="black"/>
+              <rect x="140" y="98" width="8" height="8" fill="black"/><rect x="112" y="112" width="8" height="8" fill="black"/>
+              <rect x="126" y="112" width="8" height="8" fill="black"/><rect x="154" y="112" width="8" height="8" fill="black"/>
+              <rect x="70" y="112" width="8" height="8" fill="black"/><rect x="84" y="112" width="8" height="8" fill="black"/>
+              <rect x="112" y="126" width="8" height="8" fill="black"/><rect x="140" y="126" width="8" height="8" fill="black"/>
+              <rect x="70" y="126" width="8" height="8" fill="black"/><rect x="98" y="126" width="8" height="8" fill="black"/>
+              <rect x="112" y="140" width="8" height="8" fill="black"/><rect x="126" y="140" width="8" height="8" fill="black"/>
+              <rect x="154" y="140" width="8" height="8" fill="black"/><rect x="70" y="140" width="8" height="8" fill="black"/>
+              <rect x="84" y="140" width="8" height="8" fill="black"/><rect x="112" y="154" width="8" height="8" fill="black"/>
+              <rect x="140" y="154" width="8" height="8" fill="black"/><rect x="162" y="154" width="8" height="8" fill="black"/>
+              <rect x="70" y="154" width="8" height="8" fill="black"/><rect x="98" y="154" width="8" height="8" fill="black"/>
+              <text x="90" y="98" text-anchor="middle" font-size="20" fill="#F7931A" font-weight="bold" font-family="Arial">₿</text>
+            </svg>
+          </div>
+
+          <div class="qr-amount-label">Monto cobrado (MXN)</div>
+          <input class="qr-amount-input" type="number" id="amountInput" placeholder="Ej: 150" min="1" />
+          <p class="qr-hint">≈ <span id="satsDisplay">— sats</span></p>
+          <button class="pay-btn" onclick="startPayment()">✓ Confirmar pago recibido</button>
+        </div>
+      </div>
+
+      <!-- PANTALLA 2: PROCESANDO -->
+      <div class="pos-screen" id="screen-processing">
+        <div class="processing-screen">
+          <div class="spinner-ring"></div>
+          <div class="processing-title">Procesando pago...</div>
+          <div class="processing-sub">Enviando confirmación al vendedor</div>
+          <div class="processing-steps">
+            <div class="proc-step done" id="pstep1">
+              <div class="proc-dot"></div>
+              <span>Pago Lightning recibido</span>
+            </div>
+            <div class="proc-step active" id="pstep2">
+              <div class="proc-dot"></div>
+              <span>Convirtiendo BTC → MXN</span>
+            </div>
+            <div class="proc-step" id="pstep3">
+              <div class="proc-dot"></div>
+              <span>Enviando SMS al vendedor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANTALLA 3: ÉXITO -->
+      <div class="pos-screen" id="screen-success">
+        <div class="success-screen">
+          <div class="success-icon">✓</div>
+          <div class="success-title">¡Cobro exitoso!</div>
+          <div class="success-amount" id="successAmount">$0.00 MXN</div>
+          <div class="success-sub" id="successSats">≈ 0 sats · Lightning Network</div>
+          <div class="sms-preview">
+            <div class="sms-label">📱 SMS enviado al vendedor</div>
+            <div class="sms-text" id="smsPreview">
+              Sent from your Twilio trial account - <span class="highlight">¡Cobro exitoso! $150.00 MXN</span> recibido vía KinBit ₿
+            </div>
+          </div>
+          <button class="reset-btn" onclick="resetApp()">← Nuevo cobro</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>₿ <span>KinBit</span> — El dinero del sol para el comercio informal mexicano · 2025</p>
+</footer>
+
+<script>
+  // ── NAVEGACIÓN ──
+  function switchTab(name) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    const map = { inicio: 0, aprende: 1, como: 2, app: 3 };
+    document.querySelectorAll('.nav-tabs button')[map[name]].classList.add('active');
+    if (name === 'como') animateFlow();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── PRECIO BTC ──
+  let btcPriceMXN = 1800000;
+
+  async function fetchBTCPrice() {
+    try {
+      const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=mxn');
+      const data = await res.json();
+      btcPriceMXN = data.bitcoin.mxn;
+      const fmt = btcPriceMXN.toLocaleString('es-MX');
+      document.getElementById('btcPrice').textContent = '$' + fmt + ' MXN';
+      document.getElementById('appBtcPrice').textContent = '$' + fmt + ' MXN';
+      updateSats();
+    } catch (e) {
+      document.getElementById('btcPrice').textContent = '~$1,800,000 MXN';
+      document.getElementById('appBtcPrice').textContent = '~$1,800,000 MXN';
+    }
+  }
+
+  fetchBTCPrice();
+  setInterval(fetchBTCPrice, 60000);
+
+  // ── CALCULADORA SATS ──
+  const amountInput = document.getElementById('amountInput');
+
+  function updateSats() {
+    const mxn = parseFloat(amountInput.value);
+    if (!mxn || mxn <= 0) { document.getElementById('satsDisplay').textContent = '— sats'; return; }
+    const sats = Math.round((mxn / btcPriceMXN) * 100000000);
+    document.getElementById('satsDisplay').textContent = sats.toLocaleString('es-MX') + ' sats';
+  }
+
+  amountInput.addEventListener('input', updateSats);
+
+  // ── FLUJO DE PAGO ──
+  function startPayment() {
+    const mxn = parseFloat(amountInput.value);
+    if (!mxn || mxn <= 0) {
+      amountInput.style.borderColor = 'var(--red)';
+      setTimeout(() => amountInput.style.borderColor = '', 1500);
+      return;
+    }
+    showScreen('processing');
+    setTimeout(() => {
+      document.getElementById('pstep2').className = 'proc-step done';
+      document.getElementById('pstep3').className = 'proc-step active';
+    }, 1200);
+    setTimeout(() => {
+      document.getElementById('pstep3').className = 'proc-step done';
+    }, 2400);
+    setTimeout(() => {
+      const sats = Math.round((mxn / btcPriceMXN) * 100000000);
+      document.getElementById('successAmount').textContent = '$' + mxn.toFixed(2) + ' MXN';
+      document.getElementById('successSats').textContent = '≈ ' + sats.toLocaleString('es-MX') + ' sats · Lightning Network';
+      document.getElementById('smsPreview').innerHTML =
+        'Sent from your Twilio trial account - <span class="highlight">¡Cobro exitoso! $' + mxn.toFixed(2) + ' MXN</span> recibido vía KinBit ₿';
+      sendSMS(mxn);
+      showScreen('success');
+    }, 3000);
+  }
+
+  async function sendSMS(amount) {
+    try {
+      await fetch('http://localhost:3000/pago', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ monto: amount })
+      });
+    } catch (e) {
+      console.log('Modo demo: SMS simulado para $' + amount + ' MXN');
+    }
+  }
+
+  function resetApp() {
+    amountInput.value = '';
+    document.getElementById('satsDisplay').textContent = '— sats';
+    document.getElementById('pstep1').className = 'proc-step done';
+    document.getElementById('pstep2').className = 'proc-step active';
+    document.getElementById('pstep3').className = 'proc-step';
+    showScreen('qr');
+  }
+
+  function showScreen(name) {
+    document.querySelectorAll('.pos-screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + name).classList.add('active');
+  }
+
+  // ── ACCORDION CONCEPTOS ──
+  function toggleConcept(card) {
+    const isOpen = card.classList.contains('open');
+    document.querySelectorAll('.concept-card').forEach(c => c.classList.remove('open'));
+    if (!isOpen) card.classList.add('open');
+  }
+
+  // ── QUIZ ──
+  const questions = [
+    {
+      q: '¿Cuántos satoshis tiene un Bitcoin?',
+      opts: ['1,000 sats', '1,000,000 sats', '100,000,000 sats', '21,000,000 sats'],
+      correct: 2,
+      feedback: '✓ Correcto. Un Bitcoin = 100 millones de satoshis. Como los centavos del peso, pero hay 100 millones por cada Bitcoin.'
+    },
+    {
+      q: '¿Cuánto tiempo tarda un pago con Lightning Network?',
+      opts: ['1-3 días', '10-60 minutos', 'Menos de 3 segundos', '1 hora exacta'],
+      correct: 2,
+      feedback: '✓ Correcto. Lightning Network liquida pagos en menos de 3 segundos con comisiones casi cero.'
+    },
+    {
+      q: '¿Cuántos mexicanos tienen cuenta en Bitso aproximadamente?',
+      opts: ['500 mil', '2 millones', '8 millones', '30 millones'],
+      correct: 2,
+      feedback: '✓ Correcto. Bitso tiene más de 8 millones de usuarios en México, lo que lo convierte en el aliado ideal de KinBit.'
+    },
+    {
+      q: '¿Cuál es la principal ventaja de KinBit para Doña María?',
+      opts: ['Necesita cuenta bancaria', 'Recibe pesos sin saber qué es Bitcoin', 'Debe tener smartphone caro', 'Necesita aprender a programar'],
+      correct: 1,
+      feedback: '✓ Correcto. El vendedor solo muestra el QR y recibe un SMS. Nunca necesita entender Bitcoin ni tener cuenta bancaria.'
+    },
+    {
+      q: '¿Cuánto cobra Western Union por transferencias internacionales?',
+      opts: ['0.5%', '1-2%', '3-5%', '7-10%'],
+      correct: 3,
+      feedback: '✓ Correcto. Western Union cobra entre 7% y 10%. KinBit cobra ~0.5%, ahorrando miles de pesos al año a familias mexicanas.'
+    }
+  ];
+
+  let currentQ = 0, score = 0, answered = false;
+
+  function loadQuestion() {
+    const q = questions[currentQ];
+    document.getElementById('qNum').textContent = (currentQ + 1) + ' / ' + questions.length;
+    document.getElementById('qScore').textContent = '✓ ' + score;
+    document.getElementById('progressFill').style.width = ((currentQ + 1) / questions.length * 100) + '%';
+    document.getElementById('quizQuestion').textContent = q.q;
+    document.getElementById('quizFeedback').className = 'quiz-feedback';
+    document.getElementById('quizNext').className = 'quiz-next';
+    answered = false;
+    const optsEl = document.getElementById('quizOptions');
+    optsEl.innerHTML = '';
+    q.opts.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.textContent = opt;
+      btn.onclick = () => answerQuestion(i, btn);
+      optsEl.appendChild(btn);
+    });
+  }
+
+  function answerQuestion(idx, btn) {
+    if (answered) return;
+    answered = true;
+    const q = questions[currentQ];
+    const fb = document.getElementById('quizFeedback');
+    document.querySelectorAll('.quiz-option').forEach(b => b.style.pointerEvents = 'none');
+    if (idx === q.correct) {
+      btn.classList.add('correct');
+      fb.textContent = q.feedback;
+      fb.className = 'quiz-feedback correct show';
+      score++;
+      document.getElementById('qScore').textContent = '✓ ' + score;
+    } else {
+      btn.classList.add('wrong');
+      document.querySelectorAll('.quiz-option')[q.correct].classList.add('correct');
+      fb.textContent = '✗ Incorrecto. ' + q.feedback;
+      fb.className = 'quiz-feedback wrong show';
+    }
+    if (currentQ < questions.length - 1) {
+      document.getElementById('quizNext').className = 'quiz-next show';
+    } else {
+      setTimeout(showScore, 1000);
+    }
+  }
+
+  function nextQuestion() { currentQ++; loadQuestion(); }
+
+  function showScore() {
+    document.getElementById('quizCard').innerHTML = `
+      <div class="score-display">
+        <div class="big-score">${score}/${questions.length}</div>
+        <p>${score >= 4 ? '¡Excelente! Ya sabes más de Bitcoin que el 90% de México 🎉' : score >= 3 ? '¡Bien hecho! Sigue aprendiendo sobre Bitcoin ₿' : 'Repasa los conceptos de arriba e inténtalo de nuevo 💪'}</p>
+        <button class="btn-primary" style="margin-top:1.5rem" onclick="restartQuiz()">Intentar de nuevo</button>
+      </div>`;
+  }
+
+  function restartQuiz() {
+    currentQ = 0; score = 0;
+    document.getElementById('quizCard').innerHTML = `
+      <div class="quiz-progress">
+        <span id="qNum">1 / 5</span>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+        <span id="qScore">✓ 0</span>
+      </div>
+      <div class="quiz-question" id="quizQuestion"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-next" id="quizNext">
+        <button class="btn-primary" style="width:100%" onclick="nextQuestion()">Siguiente →</button>
+      </div>`;
+    loadQuestion();
+  }
+
+  // ── ANIMACIÓN FLUJO ──
+  function animateFlow() {
+    document.querySelectorAll('.flow-step').forEach((s, i) => {
+      setTimeout(() => s.classList.add('visible'), i * 120);
+    });
+  }
+
+  // Init
+  loadQuestion();
+</script>
+
+</body>
+</html>
