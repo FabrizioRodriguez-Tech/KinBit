@@ -308,8 +308,8 @@
       border-radius: 10px;
     }
 
-    .problem-card h3 { font-size: 3rem; font-weight: 700; margin-bottom: 2rem; }
-    .problem-card p { color: var(--gray); font-size: 2.2rem; line-height: 3rem; }
+    .problem-card h3 { font-size: 1.3rem; font-weight: 600; margin-bottom: 2rem; }
+    .problem-card p { color: var(--gray); font-size: 1.2rem; line-height: 2rem; }
 
     /* ─── TAB 2: APRENDE ─── */
     .learn-hero {
@@ -320,12 +320,12 @@
 
     .learn-hero h2 {
       font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 800;
+      font-weight: 600;
       margin-bottom: 1rem;
       letter-spacing: -1px;
     }
 
-    .learn-hero p { color: var(--gray); font-size: 1rem; line-height: 1.6; }
+    .learn-hero p { color: var(--gray); font-size: 1.3rem; line-height: 1.6; }
 
     .concepts {
       max-width: 100%;
@@ -365,7 +365,7 @@
       font-size: 1.4rem;
     }
 
-    .concept-title { font-weight: 700; font-size: 1rem; }
+    .concept-title { font-weight: 600; font-size: 1rem; }
     .concept-subtitle { color: var(--gray); font-size: 0.8rem; margin-top: 2px; }
     .concept-arrow { color: var(--gray); font-size: 1rem; transition: transform 0.3s; }
     .concept-card.open .concept-arrow { transform: rotate(180deg); }
@@ -944,7 +944,7 @@
 <div id="tab-aprende" class="tab-content">
 
   <div class="learn-hero">
-    <h2>Bitcoin <span style="color:var(--orange)">sin tecnicismos</span></h2>
+    <h2><span style ="color:var(--white)">Bitcoin</span> <span style="color:var(--orange)">sin tecnicismos</span></h2>
     <p>Conceptos clave explicados en lenguaje cotidiano mexicano. Toca cada concepto para expandirlo.</p>
   </div>
 
@@ -953,7 +953,6 @@
     <div class="concept-card" onclick="toggleConcept(this)">
       <div class="concept-header">
         <div class="concept-left">
-          <div class="concept-icon">₿</div>
           <div>
             <div class="concept-title">¿Qué es Bitcoin?</div>
             <div class="concept-subtitle">La moneda digital descentralizada</div>
@@ -965,7 +964,7 @@
         <p>Bitcoin es una moneda digital que no controla ningún banco ni gobierno. Funciona gracias a miles de computadoras alrededor del mundo que verifican cada transacción y la registran en un libro público llamado blockchain.</p>
         <p>A diferencia del peso mexicano, nadie puede imprimir más Bitcoin. Solo existirán 21 millones de bitcoins en total, lo que lo hace resistente a la inflación.</p>
         <div class="concept-analogy">
-          <strong>Analogía mexicana:</strong> Imagina que el oro fuera digital y que en lugar de estar guardado en un banco, estuviera registrado en un libro que todos en el pueblo pueden ver y nadie puede borrar ni cambiar.
+          <strong>Analogía:</strong> Imagina que el oro fuera digital y que en lugar de estar guardado en un banco, estuviera registrado en un libro que todos en el pueblo pueden ver y nadie puede borrar ni cambiar.
         </div>
       </div>
     </div>
@@ -973,7 +972,6 @@
     <div class="concept-card" onclick="toggleConcept(this)">
       <div class="concept-header">
         <div class="concept-left">
-          <div class="concept-icon">⚡</div>
           <div>
             <div class="concept-title">Lightning Network</div>
             <div class="concept-subtitle">Pagos instantáneos en Bitcoin</div>
@@ -985,7 +983,7 @@
         <p>Bitcoin normal puede tardar entre 10 minutos y 1 hora en confirmar un pago. Lightning Network es una capa adicional sobre Bitcoin que permite pagos instantáneos en menos de 3 segundos con comisiones casi cero.</p>
         <p>KinBit usa Lightning Network para que el pago llegue al instante, como si fuera efectivo digital.</p>
         <div class="concept-analogy">
-          <strong>Analogía mexicana:</strong> Si Bitcoin es la carretera federal, Lightning Network es el carril rápido de cuota. Llegas más rápido y pagas mucho menos.
+          <strong>Analogía:</strong> Si Bitcoin es la carretera federal, Lightning Network es el carril rápido de cuota. Llegas más rápido y pagas mucho menos.
         </div>
       </div>
     </div>
@@ -993,7 +991,6 @@
     <div class="concept-card" onclick="toggleConcept(this)">
       <div class="concept-header">
         <div class="concept-left">
-          <div class="concept-icon">🪙</div>
           <div>
             <div class="concept-title">¿Qué es un Satoshi?</div>
             <div class="concept-subtitle">La unidad mínima de Bitcoin</div>
@@ -1005,7 +1002,7 @@
         <p>Un Bitcoin se divide en 100 millones de partes iguales. Cada una de esas partes se llama satoshi (o "sat"). Así como el peso se divide en centavos, el Bitcoin se divide en satoshis.</p>
         <p>Como el Bitcoin vale mucho, la mayoría de los pagos cotidianos se hacen en miles o cientos de miles de satoshis, no en bitcoins completos.</p>
         <div class="concept-analogy">
-          <strong>Analogía mexicana:</strong> Un satoshi es como el centavo del Bitcoin. Pagarías $150 pesos ≈ 8,333 sats, igual que $150 pesos = 15,000 centavos.
+          <strong>Analogía:</strong> Un satoshi es como el centavo del Bitcoin. Pagarías $150 pesos ≈ 8,333 sats, igual que $150 pesos = 15,000 centavos.
         </div>
       </div>
     </div>
@@ -1013,7 +1010,6 @@
     <div class="concept-card" onclick="toggleConcept(this)">
       <div class="concept-header">
         <div class="concept-left">
-          <div class="concept-icon">🔗</div>
           <div>
             <div class="concept-title">¿Qué es la Blockchain?</div>
             <div class="concept-subtitle">El registro público de todas las transacciones</div>
@@ -1025,7 +1021,7 @@
         <p>La blockchain es una base de datos pública donde se registran todas las transacciones de Bitcoin. Es como un libro de contabilidad gigante que todos pueden consultar pero nadie puede modificar retroactivamente.</p>
         <p>Cada "bloque" contiene un grupo de transacciones y está enlazado matemáticamente al bloque anterior, formando una cadena imposible de alterar sin que todos lo noten.</p>
         <div class="concept-analogy">
-          <strong>Analogía mexicana:</strong> Es como el libro de cuentas del tendero del barrio, pero en lugar de que solo él lo tenga, todos los vecinos tienen una copia idéntica y actualizada en tiempo real.
+          <strong>Analogía:</strong> Es como el libro de cuentas del tendero del barrio, pero en lugar de que solo él lo tenga, todos los vecinos tienen una copia idéntica y actualizada en tiempo real.
         </div>
       </div>
     </div>
@@ -1033,7 +1029,6 @@
     <div class="concept-card" onclick="toggleConcept(this)">
       <div class="concept-header">
         <div class="concept-left">
-          <div class="concept-icon">📉</div>
           <div>
             <div class="concept-title">Bitcoin vs Inflación del Peso</div>
             <div class="concept-subtitle">¿Por qué importa para México?</div>
@@ -1053,7 +1048,7 @@
   </div>
 
   <div class="quiz-section">
-    <div class="quiz-title">🎮 Pon a prueba lo aprendido</div>
+    <div class="quiz-title">Pon a prueba lo aprendido</div>
     <div class="quiz-sub">5 preguntas sobre Bitcoin y KinBit</div>
     <div class="quiz-card" id="quizCard">
       <div class="quiz-progress">
@@ -1501,7 +1496,7 @@
     document.getElementById('quizCard').innerHTML = `
       <div class="score-display">
         <div class="big-score">${score}/${questions.length}</div>
-        <p>${score >= 4 ? '¡Excelente! Ya sabes más de Bitcoin que el 90% de México 🎉' : score >= 3 ? '¡Bien hecho! Sigue aprendiendo sobre Bitcoin ₿' : 'Repasa los conceptos de arriba e inténtalo de nuevo 💪'}</p>
+        <p>${score >= 4 ? '¡Excelente! Ya sabes más de Bitcoin que el 90% de México' : score >= 3 ? '¡Bien hecho! Sigue aprendiendo sobre Bitcoin ₿' : 'Repasa los conceptos de arriba e inténtalo de nuevo'}</p>
         <button class="btn-primary" style="margin-top:1.5rem" onclick="restartQuiz()">Intentar de nuevo</button>
       </div>`;
   }
