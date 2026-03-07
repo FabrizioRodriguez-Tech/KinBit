@@ -58,13 +58,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 4rem;
+      padding: 3rem;
       height: 64px;
     }
 
     .nav-logo {
       font-family: 'Azonix', sans-serif;
-      font-size: 4rem;
+      font-size: 3rem;
       font-weight: 700;
       color: var(--white);
       letter-spacing: 0px;
@@ -77,7 +77,7 @@
 
     .nav-tabs {
       display: flex;
-      gap: 7rem;
+      gap: 2rem;
       list-style: none;
     }
 
@@ -86,7 +86,7 @@
       border: none;
       color: var(--gray);
       font-family: 'Syne', sans-serif;
-      font-size: 2.2rem;
+      font-size: 1rem;
       font-weight: 600;
       padding: 2rem 2rem;
       border-radius: 6px;
@@ -100,7 +100,7 @@
 
     .ticker {
       font-family: 'Space Mono';
-      font-size: 2.5rem;
+      font-size: 1.3rem;
       color: var(--gold);
       display: flex;
       align-items: center;
@@ -108,7 +108,7 @@
     }
 
     .ticker-dot {
-      width: 20px; height: 20px;
+      width: 10px; height: 10px;
       background: var(--green);
       border-radius: 50%;
       animation: pulse 2s infinite;
@@ -131,7 +131,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 4rem 2rem;
+      padding: 2rem 2rem;
       position: relative;
     }
 
@@ -151,7 +151,7 @@
       border: 1px solid var(--border-solid);
       border-radius: 999px;
       padding: 1rem 7rem;
-      font-size: 2.5rem;
+      font-size: 1.3rem;
       color: var(--gold);
       margin-bottom: 2rem;
       font-family: 'Space Mono', monospace;
@@ -171,10 +171,11 @@
     .hero h1 .bit { color: var(--white); }
 
     .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 2.5rem);
-      color: var(--white);
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: var(--gray);
       max-width: 540px;
       margin-bottom: 3rem;
+      line-height: 1.7;
     }
 
     .hero-sub strong { color: var(--white); }
@@ -194,7 +195,7 @@
       border-radius: 8px;
       font-family: 'Syne', sans-serif;
       font-weight: 600;
-      font-size: 2.5rem;
+      font-size: 1.3rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -209,7 +210,7 @@
       border-radius: 7px;
       font-family: 'Syne', sans-serif;
       font-weight: 600;
-      font-size: 2.5rem;
+      font-size: 1.3rem;
       cursor: pointer;
       transition: all 0.2s;
     }
@@ -218,9 +219,9 @@
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 600px));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 300px));
       gap: 2rem;
-      padding: 3rem 3rem;
+      padding: 2rem 2rem;
       max-width: 100%;
       justify-content: center;
     }
@@ -229,7 +230,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 5rem;
+      padding: .5rem;
       position: relative;
       overflow: hidden;
       transition: all 0.3s;
@@ -239,7 +240,7 @@
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 10px;
+      height: 4px;
       background: linear-gradient(90deg, var(--orange), var(--gold));
     }
 
@@ -247,13 +248,13 @@
 
     .stat-number {
       font-family: 'Space Mono', monospace;
-      font-size: 5rem;
+      font-size: 2rem;
       font-weight: 700;
       color: var(--orange);
       margin-bottom: 0.5rem;
     }
 
-    .stat-label { color: var(--gray); font-size: 2.2rem; line-height: 1.5; }
+    .stat-label { color: var(--gray); font-size: 1.5rem; line-height: 1.5; }
 
     .section {
       max-width: 100%;
@@ -261,20 +262,24 @@
     }
 
     .section-title {
-      font-size: clamp(1.8rem, 4vw, 7rem);
+      font-size: clamp(1.8rem, 4vw, 5rem);
       font-weight: 600;
       margin-bottom: 1rem;
       letter-spacing: -1px;
     text-align: center;
-    color: orange;
     }
 
     .section-title .accent { color: var(--white); }
-    .section-sub { color: var(--gray); font-size: 3rem; margin-bottom: 3rem; max-width: 100%; text-align: center; margin-left: auto; margin-right: auto; white-space: nowrap; }
+    .section-sub { 
+  color: var(--gray); 
+  font-size: 1.5rem; 
+  margin-bottom: 3rem; 
+  text-align: center; 
+}
 
     .problem-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 600px));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 300px));
       gap: 2rem;
       justify-content: center;
     }
@@ -295,7 +300,7 @@
     .problem-icon {
       font-size: 1rem;
       min-width: 44px;
-      height: 44px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -903,8 +908,7 @@
   </div>
 
   <section class="section">
-   <h2 class="section-title"><span style="color:#FFFFFF">El problema</span><span style="color:#F7931A"> real</span></h2>
-    <p class="section-sub">Millones de comerciantes informales mexicanos están excluidos del sistema financiero digital.</p>
+<h2 class="section-title"><span style="color:#FFFFFF">El problema</span><span style="color:#F7931A"> real</span></h2>    <p class="section-sub">Millones de comerciantes informales mexicanos están excluidos del sistema financiero digital.</p>
     <div class="problem-grid">
       <div class="problem-card">
         <div>
